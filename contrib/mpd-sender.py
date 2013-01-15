@@ -51,8 +51,8 @@ while True:
 
   if song['id'] != old_song or old_state != status['state']:
     state = status['state']
-    title = song['title'].decode("iso8859-15")
-    artist = song['artist'].decode("iso8859-15")
+    title = song['title'].decode("utf-8")
+    artist = song['artist'].decode("utf-8")
 
     if state == "pause":
       title = "[paused] " + title
