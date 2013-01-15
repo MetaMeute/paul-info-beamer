@@ -53,23 +53,26 @@ while True:
 
   count = count + 1
 
-  if count > 50 or song['id'] != old_song or old_state != status['state']:
-    count = 0
-    state = status['state']
-    title = song['title'].decode("utf-8")
-    artist = song['artist'].decode("utf-8")
+  try:
+    if count > 50 or song['id'] != old_song or old_state != status['state']:
+      count = 0
+      state = status['state']
+      title = song['title'].decode("utf-8")
+      artist = song['artist'].decode("utf-8")
 
-    if state == "pause":
-      title = "[paused] " + title
-    elif state == "stop":
-      title = "[stopped]"
-      artist = ""
+      if state == "pause":
+        title = "[paused] " + title
+      elif state == "stop":
+        title = "[stopped]"
+        artist = ""
 
 
-    s.sendto("mpd-status/title:" + title.encode("utf-8"), dst)
-    s.sendto("mpd-status/artist:" + artist.encode("utf-8"), dst)
+      s.sendto("mpd-status/title:" + title.encode("utf-8"), dst)
+      s.sendto("mpd-status/artist:" + artist.encode("utf-8"), dst)
 
-    old_song = song['id']
-    old_state = status['state']
+      old_song = song['id']
+      old_state = status['state']
+  except KeyError:
+    pass
 
   sleep(0.1)
