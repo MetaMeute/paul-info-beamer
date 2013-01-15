@@ -8,6 +8,8 @@ local old_title = ""
 
 webcam_turm = resource.load_image("webcam_turm.jpg")
 
+meutelogo = resource.load_image("meutelogo.png")
+
 function cluttered()
     local all_breaks = '/.-{}()[]<>|,;!? '
     local breaks = {}
@@ -117,6 +119,8 @@ function node.render()
   webcam_turm:draw(WIDTH - BORDER - 640, BORDER + 2 * 70, WIDTH - BORDER, BORDER + 480 + 2 * 70) 
 
   resource.render_child("digitalclock"):draw(WIDTH - BORDER - 540, HEIGHT - BORDER - 200, WIDTH - BORDER, HEIGHT - BORDER)
+
+  meutelogo:draw(BORDER, HEIGHT - BORDER - 128, BORDER + 452, HEIGHT - BORDER)
 
 --  vnc:draw(0, 0, WIDTH, HEIGHT)
 end
