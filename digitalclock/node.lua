@@ -8,7 +8,7 @@ function clock()
   local function update()
     time = os.date("%X")
     day = os.date("%A")
-    date = os.date("%d. %B. %Y")
+    date = os.date("%d. %B %Y")
   end
 
   local function get_time() return time end
