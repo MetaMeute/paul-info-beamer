@@ -34,7 +34,7 @@ function node.render()
     last_update = sys.now()
   end
 
-  bold:write(0, 100, c.time(), 114, 1,1,1,1)
-  bold:write(0, 0, c.day(), 50, 1, 1, 1, 1)
-  bold:write(0, 50, c.date(), 50, 1, 1, 1, 1)
+  bold:write(0, 100, c.time(), 114, 1, 1, 1, 1)
+  bold:write(0, 0, c.day(), 50, 1.0, 1.0, .4, 1)
+  regular:write(0, 50, c.date(), 50, .7, 1.0, .7, 1)
 end
