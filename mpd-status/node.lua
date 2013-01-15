@@ -98,8 +98,6 @@ node.event("data", function (data, suffix)
 end)
 
 function node.render()
-  gl.clear(0,0.02,0.2,1)
-
   bold:write(0, 0, line1.get(), 50, 1,1,1,1)
   bold:write(0, 70, line2.get(), 50, .5,.8,.5,1)
 end
