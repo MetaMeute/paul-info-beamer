@@ -97,7 +97,20 @@ node.event("data", function (data, suffix)
   if suffix == "artist" then line2.go(data, 3)  end
 end)
 
+function scroll(font, text, y, size, r, g, b, a)
+  local width = bold:write(0, -3*size, text, size, r, g, b, a)
+  local offset = (1-math.cos(sys.now()))*(WIDTH-width)/2
+  local center = width / 2
+  if width < WIDTH then
+    offset = 0
+    center = 0
+  end
+  font:write(offset, y, text, size, r, g, b, a)
+end
+
 function node.render()
-  bold:write(0, 0, line1.get(), 50, 1,1,1,1)
-  bold:write(0, 70, line2.get(), 50, .5,.8,.5,1)
+  local text = line1.get()
+
+  scroll(bold, line1.get(), 0, 50, 1, 1, 1, 1)
+  scroll(bold, line2.get(), 70, 50, .5, .8, .5, 1)
 end
