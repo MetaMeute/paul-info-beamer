@@ -113,7 +113,7 @@ vnc = resource.create_vnc("::1", 5901)
 function node.render()
   gl.clear(0,0.02,0.2,1)
 
-  resource.render_child("mpd-status"):draw(BORDER, BORDER, WIDTH - 2 * BORDER, BORDER + 140)
+  resource.render_child("mpd-status"):draw(BORDER, BORDER, WIDTH - BORDER, BORDER + 140)
 
   resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
   webcam_turm:draw(WIDTH - BORDER - 640, BORDER + 2 * 70, WIDTH - BORDER, BORDER + 480 + 2 * 70) 
