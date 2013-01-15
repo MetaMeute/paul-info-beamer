@@ -28,6 +28,8 @@ s.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_MULTICAST_IF, ifn)
 
 dst = ("ff02::1", 4444)
 
+count = 0
+
 while True:
   try:
     song = client.currentsong()
@@ -49,7 +51,10 @@ while True:
     sleep(1)
     continue
 
-  if song['id'] != old_song or old_state != status['state']:
+  count = count + 1
+
+  if count > 50 or song['id'] != old_song or old_state != status['state']:
+    count = 0
     state = status['state']
     title = song['title'].decode("utf-8")
     artist = song['artist'].decode("utf-8")
