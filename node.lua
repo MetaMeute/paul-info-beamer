@@ -120,10 +120,10 @@ function node.render()
 
   resource.render_child("digitalclock"):draw(WIDTH - BORDER - 540, HEIGHT - BORDER - 200, WIDTH - BORDER, HEIGHT - BORDER)
 
-  shader:use{
-      Effect = math.cos(sys.now()*2)*3
-  }
-  meutelogo:draw(BORDER, HEIGHT - BORDER - 128, BORDER + 452, HEIGHT - BORDER)
+  gl.pushMatrix()
+  gl.translate(226+BORDER, HEIGHT - BORDER - 64, 0)
+  meutelogo:draw(-226, -64, 226, 64)
+  gl.popMatrix()
 
 --  vnc:draw(0, 0, WIDTH, HEIGHT)
 end
