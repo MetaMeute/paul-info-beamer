@@ -116,5 +116,7 @@ function node.render()
   resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
   webcam_turm:draw(WIDTH - BORDER - 640, BORDER + 2 * 70, WIDTH - BORDER, BORDER + 480 + 2 * 70) 
 
+  resource.render_child("digitalclock"):draw(WIDTH - BORDER - 540, HEIGHT - BORDER - 200, WIDTH - BORDER, HEIGHT - BORDER)
+
 --  vnc:draw(0, 0, WIDTH, HEIGHT)
 end
