@@ -19,8 +19,6 @@ local next_image
 local next_image_time = sys.now() + COUNTDOWN
 
 function node.render()
-  util.draw_correct(current_image, 0, 0, WIDTH,HEIGHT)
-
   local time_to_next = next_image_time - sys.now()
 
   if time_to_next < FADEDURATION then
@@ -34,6 +32,8 @@ function node.render()
     util.draw_correct(current_image, 0, 0, WIDTH, HEIGHT)
     util.draw_correct(next_image, WIDTH, 0, 2*WIDTH, HEIGHT)
     gl.popMatrix()
+  else
+    util.draw_correct(current_image, 0, 0, WIDTH,HEIGHT)
   end
 
   if time_to_next < 0 then
