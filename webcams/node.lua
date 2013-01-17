@@ -1,5 +1,5 @@
-local COUNTDOWN = 1.5*5
-local FADEDURATION = 1.5*5
+local COUNTDOWN = 3
+local FADEDURATION = 1.0
 
 gl.setup(640, 480)
 
@@ -27,11 +27,8 @@ function node.render()
     end
     local alpha = math.sin((FADEDURATION - time_to_next)/FADEDURATION*3.1415/2)
     alpha = (FADEDURATION - time_to_next)/FADEDURATION
-    gl.pushMatrix()
-    gl.translate(-WIDTH*alpha, 0, 0)
     util.draw_correct(current_image, 0, 0, WIDTH, HEIGHT)
-    util.draw_correct(next_image, WIDTH, 0, 2*WIDTH, HEIGHT)
-    gl.popMatrix()
+    util.draw_correct(next_image, 0, 0, WIDTH, HEIGHT, alpha)
   else
     util.draw_correct(current_image, 0, 0, WIDTH,HEIGHT)
   end
@@ -45,5 +42,4 @@ function node.render()
       next_image_time = sys.now() + COUNTDOWN
     end
   end
-
 end
