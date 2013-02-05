@@ -27,7 +27,12 @@ function node.render()
 
   resource.render_child("mpd-status"):draw(BORDER, BORDER, WIDTH - BORDER, BORDER + 140)
 
-  resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
+  if math.floor(sys.now()/8) % 2 == 1 then
+    resource.render_child("busfahrplan"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
+  else
+    resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
+  end
+
   resource.render_child("webcams"):draw(WIDTH - BORDER - 640, BORDER + 2 * 70, WIDTH - BORDER, BORDER + 480 + 2 * 70) 
 
   resource.render_child("digitalclock"):draw(WIDTH - BORDER - 540, HEIGHT - BORDER - 200, WIDTH - BORDER, HEIGHT - BORDER)
