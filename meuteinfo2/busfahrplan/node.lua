@@ -1,8 +1,8 @@
-gl.setup(520, 571)
+gl.setup(1180/2, 924/2)
 
 RED = 9
 YELLOW = 16
-MAX = 9
+MAX = 7
 
 local json = require"json"
 
