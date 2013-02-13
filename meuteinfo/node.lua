@@ -3,6 +3,7 @@ gl.setup(1280, 1024)
 util.auto_loader(_G)
 
 meutelogo = resource.load_image("meutelogo.png")
+gear = resource.load_image("gear.png")
 
 local BORDER = 50
 
@@ -18,25 +19,35 @@ local logo_shader = resource.create_shader([[
         vec2 uv = gl_TexCoord[0].st;
         vec4 texel = texture2D(tex, gl_TexCoord[0].st);
         gl_FragColor = gl_Color * texel;
-        gl_FragColor = vec4(1.0, 1.0, 1.0, texel.a);
+        gl_FragColor = vec4(1.0, 1.0, 1.0, texel.a * 0.2);
     }
 ]])
 
 function node.render()
   gl.clear(math.cos((sys.now()+42589)/7)*0.2, math.sin((sys.now()+199933)/23)*0.3, math.cos(sys.now()+999331)*0.2, 1)
+  
+  gl.pushMatrix()
+  logo_shader:use()
+  gl.translate(WIDTH-BORDER-150, BORDER+150)
+  gl.rotate(sys.now()*90, 0, 0, 1)
+  gear:draw(-150, -150, 150, 150)
+  logo_shader:deactivate()
+  gl.popMatrix()
 
   resource.render_child("mpd-status"):draw(BORDER, BORDER, WIDTH - BORDER, BORDER + 140)
 
-  if math.floor(sys.now()/8) % 2 == 1 then
-    resource.render_child("busfahrplan"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
-  else
-    resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
-  end
+  resource.render_child("wetterkarte"):draw(BORDER, BORDER + 2 * 70, 520 + BORDER, 571 + BORDER + 2 * 70)
 
   resource.render_child("webcams"):draw(WIDTH - BORDER - 640, BORDER + 2 * 70, WIDTH - BORDER, BORDER + 480 + 2 * 70) 
 
   resource.render_child("digitalclock"):draw(WIDTH - BORDER - 540, HEIGHT - BORDER - 200, WIDTH - BORDER, HEIGHT - BORDER)
- logo_shader:use()
+
+  gl.pushMatrix()
+  gl.translate(800, 10)
+  gl.scale(0.5, 0.5)
+  resource.render_child("nyuclock"):draw(0, 0, 1024, 1024)
+  gl.popMatrix()
+
         gl.perspective(50,
             WIDTH/2+60, HEIGHT/2+45, -WIDTH/1.38,
             WIDTH/2+60, HEIGHT/2+45, 0
@@ -53,5 +64,4 @@ function node.render()
   meutelogo:draw(0, 0, 2*226, 64*2)
         gl.popMatrix()
         gl.ortho()
-    logo_shader:deactivate()
 end

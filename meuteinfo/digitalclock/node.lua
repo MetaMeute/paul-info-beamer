@@ -95,7 +95,7 @@ function fliptext(font, x, y, size, r, g, b, a, duration)
 end
 
 local last_update = sys.now()
-local fliptime = fliptext(bold, 0, 100, 114, 1, 1, 1, 1, 0.4)
+local fliptime = fliptext(bold, 0, 100, 114, 1, 1, 1, 1, 0.9)
 local c = clock(fliptime)
 
 function node.render()
