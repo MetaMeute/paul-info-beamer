@@ -10,3 +10,5 @@ wget -q -O $TARGET/yachthafen.jpg http://www.marina-baltica.de/web/livecam.jpg &
 wget -q -O $TARGET/ostpreussenkai.jpg http://www.dzulko.de/tl_files/images_webcam_live/webcam_02/current.jpg &
 wget -q -O $TARGET/ostseestrand.jpg http://www.dzulko.de/tl_files/images_webcam_live/webcam_01/current.jpg &
 wget -q -O $TARGET/priwall-strand.jpg http://www.seelichter.de/webcam.jpg &
+wget -q -O $TARGET/baustelle.jpg http://www.cbbm.uni-luebeck.de/fileadmin/cam/cbbm-webcam.jpg &
+wget -q -O $TARGET/porto.jpg http://www.giglionews.com/isoladelgiglio_porto.jpg &
