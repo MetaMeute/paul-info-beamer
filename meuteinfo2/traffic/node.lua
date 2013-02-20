@@ -16,5 +16,5 @@ end)
 
 function node.render()
   bold:write(0, 0, rx, 50, 1, 1, 1)
-  bold:write(50, 0, tx, 50, 1, 1, 1)
+  bold:write(0, 50, tx, 50, 1, 1, 1)
 end
