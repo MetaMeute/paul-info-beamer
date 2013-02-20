@@ -1,4 +1,4 @@
-gl.setup(1024, 300)
+gl.setup(1280, 300)
 
 RED = 9
 YELLOW = 16
@@ -33,7 +33,7 @@ function wrap(str, limit)
 end
 
 function draw_box(header, body, alpha)
-  body = wrap(body, 32)
+  body = wrap(body, 40)
 
   textheight = 50
   height = 2*BORDER+50+10 + #body*textheight
