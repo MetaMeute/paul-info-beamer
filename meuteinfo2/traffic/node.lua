@@ -2,9 +2,12 @@ gl.setup(400, 300)
 
 util.auto_loader(_G)
 
-node.alias("traffic-status")
+node.alias("traffic")
 
 local rx, tx
+
+rx = 0
+tx = 0
 
 node.event("data", function (data, suffix) 
   if suffix == "rx" then rx = data end
