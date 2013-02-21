@@ -36,7 +36,7 @@ ifn = if_nametoindex("meutenetz")
 ifn = struct.pack("I", ifn)
 s.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_MULTICAST_IF, ifn)
 
-dst = ("localhost", 4444)
+dst = ("paul.meute.ffhl", 4444)
 
 last_time = monotonic_time()
 last_rx = 0
