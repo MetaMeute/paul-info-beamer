@@ -29,14 +29,14 @@ def monotonic_time():
         raise OSError(errno_, os.strerror(errno_))
     return t.tv_sec + t.tv_nsec * 1e-9
 
-IF="eth0"
+IF="wlan0"
 
 s = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
 ifn = if_nametoindex("meutenetz")
 ifn = struct.pack("I", ifn)
 s.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_MULTICAST_IF, ifn)
 
-dst = ("paul.meute.ffhl", 4444)
+dst = ("localhost", 4444)
 
 last_time = monotonic_time()
 last_rx = 0
@@ -56,8 +56,8 @@ while True:
             dtime = new_time - last_time
 
             if last_rx != 0 and last_tx != 0:
-              s.sendto("traffic/rx:" + str(drx/dtime/1024), dst)
-              s.sendto("traffic/tx:" + str(dtx/dtime/1024), dst)
+              s.sendto("traffic/rx:%d" % (drx/dtime), dst)
+              s.sendto("traffic/tx:%d" % (dtx/dtime), dst)
 
             last_rx = rx
             last_tx = tx
