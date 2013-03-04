@@ -4,7 +4,7 @@ RED = 9
 YELLOW = 16
 MAX = 9
 
-local json = require"json"
+local json = require("json")
 
 util.auto_loader(_G)
 
