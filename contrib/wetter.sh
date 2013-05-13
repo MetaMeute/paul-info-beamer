@@ -4,7 +4,7 @@ TMPDIR=$(mktemp -d)
 
 pushd $TMPDIR
 
-seq 0 15 $[15*12] | \
+seq 0 15 $[15*9] | \
   while read offset
   do
     date -d"$(date -d"1970-01-01 00:00:00$(date +%:z) \
