@@ -1,15 +1,26 @@
 #!/bin/bash
 
-OUT=$1
+TMPDIR=$(mktemp -d)
 
-URL=`wget -q --user-agent foo http://www.wetteronline.de/include/radar_dldl_00_dschf.htm -O-|grep Loop\ 90|sed 's%.*stdT\([[:digit:]]\{4\}\)\([[:digit:]]\{2\}\)\([[:digit:]]\{2\}\)\([[:digit:]]\{2\}\)\([[:digit:]]\{2\}\).*%http://www.wetteronline.de/daten/radar/dsch/\1/\2/\3/std_\4\5.gif%'`
+pushd $TMPDIR
 
-FILE=/tmp/wetterkarte.gif
+seq 0 15 $[15*12] | \
+  while read offset
+  do
+    date -d"$(date -d"1970-01-01 00:00:00$(date +%:z) \
+      + $(dc -e "$(date +%s) d 60 15 * % - p") seconds" \
+      +"%Y-%m-%d %H:%M:%S %Z - $offset minutes")" \
+      +"http://www.wetteronline.de/?pid=p_radar_map&ireq=true&src=radar/vermarktung/p_radar_map/wom/%Y/%m/%d/Intensity/SHS/grey_flat/%Y%m%d%H%M_SHS_Intensity.gif"
+  done | \
+    nl | \
+    while read n url; do
+      wget -qO${n}.gif "$url"
+    done
 
-wget --user-agent foo -q -O$FILE $URL 
-convert -delete 0-5 $FILE $FILE ${FILE}.out.gif
+convert -delay 30 $(ls -r) out.gif
 
-convert ${FILE}.out.gif $OUT
+popd
 
-rm $FILE ${FILE}.out.gif
+cp ${TMPDIR}/out.gif $1
 
+rm -r $TMPDIR
