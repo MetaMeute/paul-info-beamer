@@ -21,6 +21,6 @@ convert -delay 30 $(ls -r) out.gif
 
 popd
 
-cp ${TMPDIR}/out.gif $1
+convert ${TMPDIR}/out.gif $1
 
 rm -r $TMPDIR
