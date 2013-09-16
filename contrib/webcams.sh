@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TARGET=$1
-MAXAGE=180
+MAXAGE=375
 
 fetch() {
   URL=$1
@@ -9,7 +9,8 @@ fetch() {
   DATE=$(date +%F-%H-%M-%S)
 
   wget -q -O $TARGET/$FN-$DATE.jpg $URL
-  find $TARGET -name $FN-\* -mmin +180 -delete
+  find $TARGET -name $FN-\* -mmin +$MAXAGE -delete
+  find $TARGET -name $FN-\* -empty -delete
 }
 
 fetch http://www.uni-luebeck.de/nc/webcam/current/current.jpg turm &
