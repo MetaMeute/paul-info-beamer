@@ -1,15 +1,25 @@
 #!/bin/sh
 
 TARGET=$1
+MAXAGE=180
 
-wget -q -O $TARGET/turm.jpg http://www.uni-luebeck.de/nc/webcam/current/current.jpg &
-wget -q -O $TARGET/beckergrube.jpg http://212.108.160.103/axis-cgi/jpg/image.cgi &
-wget -q -O $TARGET/altstadt.jpg http://thomasknauf.dyndns.org/record/current.jpg &
-wget -q -O $TARGET/holstentor.jpg http://www.pets-in-pink.de/online/templatemedia/all_lang/resources/webcam_luebeck_holstentor.jpg &
-wget -q -O $TARGET/yachthafen.jpg http://www.marina-baltica.de/web/livecam.jpg &
-wget -q -O $TARGET/ostpreussenkai.jpg http://www.dzulko.de/tl_files/images_webcam_live/webcam_02/current.jpg &
-wget -q -O $TARGET/ostseestrand.jpg http://www.dzulko.de/tl_files/images_webcam_live/webcam_01/current.jpg &
-wget -q -O $TARGET/priwall-strand.jpg http://www.seelichter.de/webcam.jpg &
-wget -q -O $TARGET/baustelle.jpg http://www.cbbm.uni-luebeck.de/fileadmin/cam/cbbm-webcam.jpg &
-wget -q -O $TARGET/porto.jpg http://www.giglionews.com/isoladelgiglio_porto.jpg &
-wget -q -O $TARGET/fluse100.jpg http://gast:gast@10.130.0.68/snapshot.cgi &
+fetch() {
+  URL=$1
+  FN=$2
+  DATE=$(date +%F-%H-%M-%S)
+
+  wget -q -O $TARGET/$FN-$DATE.jpg $URL
+  find $TARGET -name $FN-\* -mmin +180 -delete
+}
+
+fetch http://www.uni-luebeck.de/nc/webcam/current/current.jpg turm &
+fetch http://212.108.160.103/axis-cgi/jpg/image.cgi beckergrube &
+fetch http://thomasknauf.dyndns.org/record/current.jpg altstadt &
+fetch http://www.pets-in-pink.de/online/templatemedia/all_lang/resources/webcam_luebeck_holstentor.jpg holstentor &
+fetch http://www.marina-baltica.de/web/livecam.jpg yachthafen &
+fetch http://www.dzulko.de/tl_files/images_webcam_live/webcam_02/current.jpg ostpreussenkai &
+fetch http://www.dzulko.de/tl_files/images_webcam_live/webcam_01/current.jpg ostseestrand &
+fetch http://www.seelichter.de/webcam.jpg priwall-strand &
+fetch http://www.cbbm.uni-luebeck.de/fileadmin/cam/cbbm-webcam.jpg baustelle &
+fetch http://www.giglionews.com/isoladelgiglio_porto.jpg porto &
+fetch http://gast:gast@10.130.0.68/snapshot.cgi fluse100 &

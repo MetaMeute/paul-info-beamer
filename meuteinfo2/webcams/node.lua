@@ -1,80 +1,49 @@
-local COUNTDOWN = 3
-local FADEDURATION = 0.3
-
-util.auto_loader(_G)
+DELAY = 0.04
 
 gl.setup(640, 480)
 
-pictures = util.generator(function()
+function generator(refiller)
+    local items = {}
+    local i = 1
+    return {
+        next = function(self)
+            if i > #items then
+              items = refiller()
+              i = 1
+            end
+
+            local next_item = items[i]
+            i = i + 1
+
+            return next_item
+        end;
+    }
+end
+
+pictures = generator(function()
     local out = {}
     for name, _ in pairs(CONTENTS) do
         if name:match(".*jpg") then
             out[#out + 1] = name
         end
     end
+
+    table.sort(out)
     return out
 end)
-node.event("content_remove", pictures.remove)
 
-local current_image_fn = pictures.next()
-local current_image = resource.load_image(current_image_fn)
-local next_image_fn
-local next_image
-local next_image_time = sys.now() + COUNTDOWN
-
-local distort_shader = resource.create_shader([[
-    void main() {
-        gl_TexCoord[0] = gl_MultiTexCoord0;
-        gl_FrontColor = gl_Color;
-        gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-    }
-]], [[
-    uniform sampler2D tex;
-    uniform float effect;
-    void main() {
-        vec2 uv = gl_TexCoord[0].st;
-        vec4 col;
-        col.r = texture2D(tex,vec2(uv.x+sin(uv.y*20.0*effect)*0.2,uv.y)).r;
-        col.g = texture2D(tex,vec2(uv.x+sin(uv.y*25.0*effect)*0.2,uv.y)).g;
-        col.b = texture2D(tex,vec2(uv.x+sin(uv.y*30.0*effect)*0.2,uv.y)).b;
-        col.a = texture2D(tex,vec2(uv.x,uv.y)).a;
-        vec4 foo = vec4(1,1,1,effect);
-        col.a = 1.0;
-        gl_FragColor = gl_Color * col * foo;
-    }
-]])
+local image_fn
+local image
+local time_next = sys.now()
 
 function node.render()
-  local time_to_next = next_image_time - sys.now()
+  if sys.now() > time_next then
+    time_next = sys.now() + DELAY
 
-  if time_to_next < FADEDURATION then
-    if not next_image then
-      next_image_fn = pictures.next()
-      next_image = resource.load_image(next_image_fn)
-    end
-    local alpha = (FADEDURATION - time_to_next)/FADEDURATION
-    local beta = math.sin(alpha*3.1415/2)
-    alpha = (FADEDURATION - time_to_next)/FADEDURATION
-    util.draw_correct(current_image, 0, 0, WIDTH, HEIGHT)
-    --util.draw_correct(next_image, 0, 0, WIDTH, HEIGHT, alpha)
-    util.post_effect(distort_shader, {
-        effect = math.abs(alpha) * 3.2
-    })
-    util.draw_correct(next_image, 0, 0, WIDTH, HEIGHT, beta)
-  else
-    util.draw_correct(current_image, 0, 0, WIDTH,HEIGHT)
+    image_fn = pictures.next()
+    print(image_fn)
+    image = resource.load_image(image_fn)
   end
 
-  if time_to_next < 0 then
-    if next_image then
-      current_image_fn = next_image_fn
-      current_image = next_image
-      next_image = nil
-      next_image_time = sys.now() + COUNTDOWN
-    else
-      next_image_time = sys.now() + COUNTDOWN
-    end
-  end
-
-  local w = bold:write(10, HEIGHT - 30 - 10, current_image_fn, 30, 1.0, 1.0, 0.4, 255)
+  util.draw_correct(image, 0, 0, WIDTH,HEIGHT)
 end
