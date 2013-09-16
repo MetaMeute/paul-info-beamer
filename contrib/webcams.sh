@@ -12,3 +12,4 @@ wget -q -O $TARGET/ostseestrand.jpg http://www.dzulko.de/tl_files/images_webcam_
 wget -q -O $TARGET/priwall-strand.jpg http://www.seelichter.de/webcam.jpg &
 wget -q -O $TARGET/baustelle.jpg http://www.cbbm.uni-luebeck.de/fileadmin/cam/cbbm-webcam.jpg &
 wget -q -O $TARGET/porto.jpg http://www.giglionews.com/isoladelgiglio_porto.jpg &
+wget -q -O $TARGET/fluse100.jpg http://gast:gast@10.130.0.68/snapshot.cgi &
