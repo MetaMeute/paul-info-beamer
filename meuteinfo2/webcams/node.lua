@@ -1,6 +1,8 @@
 local COUNTDOWN = 3
 local FADEDURATION = 0.3
 
+util.auto_loader(_G)
+
 gl.setup(640, 480)
 
 pictures = util.generator(function()
@@ -14,7 +16,9 @@ pictures = util.generator(function()
 end)
 node.event("content_remove", pictures.remove)
 
-local current_image = resource.load_image(pictures.next())
+local current_image_fn = pictures.next()
+local current_image = resource.load_image(current_image_fn)
+local next_image_fn
 local next_image
 local next_image_time = sys.now() + COUNTDOWN
 
@@ -45,7 +49,8 @@ function node.render()
 
   if time_to_next < FADEDURATION then
     if not next_image then
-      next_image = resource.load_image(pictures.next())
+      next_image_fn = pictures.next()
+      next_image = resource.load_image(next_image_fn)
     end
     local alpha = (FADEDURATION - time_to_next)/FADEDURATION
     local beta = math.sin(alpha*3.1415/2)
@@ -62,6 +67,7 @@ function node.render()
 
   if time_to_next < 0 then
     if next_image then
+      current_image_fn = next_image_fn
       current_image = next_image
       next_image = nil
       next_image_time = sys.now() + COUNTDOWN
@@ -69,4 +75,6 @@ function node.render()
       next_image_time = sys.now() + COUNTDOWN
     end
   end
+
+  local w = bold:write(10, HEIGHT - 30 - 10, current_image_fn, 30, 1.0, 1.0, 0.4, 255)
 end
