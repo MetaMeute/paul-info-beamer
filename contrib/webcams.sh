@@ -9,6 +9,10 @@ fetch() {
   DATE=$(date +%F-%H-%M-%S)
 
   wget -q -O $TARGET/$FN-$DATE.jpg $URL
+
+  # check jpeg and delete file in case of errors
+  jpeginfo -qc $TARGET/$FN-$DATE.jpg || rm $TARGET/$FN-$DATE.jpg
+
   find $TARGET -name $FN-\* -mmin +$MAXAGE -delete
   find $TARGET -name $FN-\* -empty -delete
 }
