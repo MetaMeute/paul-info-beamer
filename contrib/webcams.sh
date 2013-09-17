@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TARGET=$1
-MAXAGE=375
+MAXAGE=100
 
 fetch() {
   URL=$1
