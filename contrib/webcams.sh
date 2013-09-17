@@ -11,7 +11,7 @@ fetch() {
 
   cd $TARGET
 
-  wget -q -O $FILE $URL
+  wget --timeout=15 -q -O $FILE $URL
 
   # check jpeg and delete file in case of errors
   jpeginfo -qc $FILE || rm -v $FILE
