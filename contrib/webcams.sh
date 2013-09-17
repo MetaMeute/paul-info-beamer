@@ -7,14 +7,16 @@ fetch() {
   URL=$1
   FN=$2
   DATE=$(date +%F-%H-%M-%S)
+  FILE=$FN-$DATE.jpg
 
-  wget -q -O $TARGET/$FN-$DATE.jpg $URL
+  cd $TARGET
+
+  wget -q -O $FILE $URL
 
   # check jpeg and delete file in case of errors
-  jpeginfo -qc $TARGET/$FN-$DATE.jpg || rm $TARGET/$FN-$DATE.jpg
+  jpeginfo -qc $FILE || rm -v $FILE
 
-  find $TARGET -name $FN-\* -mmin +$MAXAGE -delete
-  find $TARGET -name $FN-\* -empty -delete
+  find . -name $FN-\* -mmin +$MAXAGE -delete
 }
 
 fetch http://www.uni-luebeck.de/nc/webcam/current/current.jpg turm &
