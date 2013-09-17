@@ -36,12 +36,19 @@ local image_fn
 local image
 local time_next = sys.now()
 
+function next_image()
+    image_fn = pictures.next()
+    image = resource.load_image(image_fn)
+end
+
 function node.render()
   if sys.now() > time_next then
     time_next = sys.now() + DELAY
-
-    image_fn = pictures.next()
-    image = resource.load_image(image_fn)
+    while 1 do
+        if pcall(next_image) then
+            break
+        end
+    end
   end
 
   util.draw_correct(image, 0, 0, WIDTH,HEIGHT)
