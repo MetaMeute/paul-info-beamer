@@ -41,7 +41,6 @@ function node.render()
     time_next = sys.now() + DELAY
 
     image_fn = pictures.next()
-    print(image_fn)
     image = resource.load_image(image_fn)
   end
 
