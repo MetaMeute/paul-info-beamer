@@ -4,16 +4,12 @@ local json = require("json")
 
 util.auto_loader(_G)
 
-local weather
+local data
 
 util.file_watch("weather.json", function(content)
-    weather = json.decode(content)
+    data = json.decode(content)
 end)
 
-local lastid = 0
-local fade = 1
-local fadeuntil = 0
-
 function node.render()
-  regular:write(0, 0, tostring(weather["main"]["temp"]) .. " K", 24, 1, 1, 1)
+  regular:write(0, 0, tostring(data["main"]["temp"]) .. " K", 24, 1, 1, 1)
 end
