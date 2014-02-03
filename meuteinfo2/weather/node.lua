@@ -11,5 +11,5 @@ util.file_watch("weather.json", function(content)
 end)
 
 function node.render()
-  regular:write(0, 0, tostring(data["main"]["temp"]) .. " K", 24, 1, 1, 1)
+  regular:write(0, 0, tostring(data["main"]["temp"]) .. " K", 48, 1, 1, 1)
 end
