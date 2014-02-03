@@ -1,4 +1,4 @@
-gl.setup(320, 240)
+gl.setup(640, 240)
 
 local json = require("json")
 
