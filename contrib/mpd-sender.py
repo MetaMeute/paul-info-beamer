@@ -58,7 +58,11 @@ while True:
       count = 0
       state = status['state']
       title = song['title'].decode("utf-8")
-      artist = song['artist'].decode("utf-8")
+      artist = None
+      try:
+        artist = song['artist'].decode("utf-8")
+      except AttributeError:
+        artist = ", ".join(map(lambda x: x.decode("utf-8"), song['artist']))
 
       if state == "pause":
         title = "[paused] " + title
