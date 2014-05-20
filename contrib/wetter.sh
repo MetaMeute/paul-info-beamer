@@ -14,7 +14,9 @@ seq 0 15 $[15*9] | \
   done | \
     nl | \
     while read n url; do
-      wget -qO${n}.gif "$url"
+      wget \
+        --user-agent 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)' \
+        -qO${n}.gif "$url"
     done
 
 convert -delay 30 $(ls -r) out.gif
