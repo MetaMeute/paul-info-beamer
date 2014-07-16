@@ -63,8 +63,9 @@ function draw_departures()
 
     local l = regular:write(0, -100, departure, 50, r, g, b, 1)
     regular:write(WIDTH - l, x*50, departure, 50, r, g, b, 1)
-    regular:write(60, x*50+5, v.station, 40, r, g, b, 1)
-    regular:write(0, x*50, v.route, 50, r, g, b, 1)
+    regular:write(75, x*50+5, v.station, 40, r, g, b, 1)
+    local l2 = regular:write(0,-100, v.route,50,r,g,b,1)
+    regular:write(60-l2, x*50, v.route, 50, r, g, b, 1)
     if x > MAX then break end
   end
 end
