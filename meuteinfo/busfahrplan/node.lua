@@ -40,10 +40,14 @@ function draw_departures()
     local time = math.floor(v.time % 24) .. ":" .. time_min
     local departure
 
+    local font
+
     if min > 29 then
       departure = time
+      font = regular
     else
       departure = min .. "min"
+      font = bold
     end
 
     local r,g,b
@@ -61,11 +65,14 @@ function draw_departures()
       b = 0
     end
 
-    local l = regular:write(0, -100, departure, 50, r, g, b, 1)
-    regular:write(WIDTH - l, x*50, departure, 50, r, g, b, 1)
-    regular:write(75, x*50+5, v.station, 40, r, g, b, 1)
-    local l2 = regular:write(0,-100, v.route,50,r,g,b,1)
-    regular:write(60-l2, x*50, v.route, 50, r, g, b, 1)
+    local l2 = bold:write(0,-100, v.route,50,r,g,b,1)
+    local offset = math.max(l2, 60)
+    bold:write(offset-l2, x*50, v.route, 50, r, g, b, 1)
+
+    regular:write(offset+10, x*50+5, v.station, 40, r, g, b, 1)
+
+    local l = font:write(0, -100, departure, 50, r, g, b, 1)
+    font:write(WIDTH - l, x*50, departure, 50, r, g, b, 1)
     if x > MAX then break end
   end
 end
