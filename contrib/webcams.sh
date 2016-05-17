@@ -30,3 +30,4 @@ fetch http://www.seelichter.de/webcam.jpg priwall-strand &
 fetch http://www.cbbm.uni-luebeck.de/fileadmin/cam/cbbm-webcam.jpg baustelle &
 fetch http://www.giglionews.com/isoladelgiglio_porto.jpg porto &
 fetch http://gast:gast@10.130.0.68/snapshot.cgi fluse100 &
+fetch http://www.wetterstation-luebeck.de/Wolken/camwolke.jpg camwolke &

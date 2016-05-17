@@ -2,4 +2,4 @@
 
 TARGET=$1
 
-wget -qO"$1" http://api.openweathermap.org/data/2.5/weather?q=L%C3%BCbeck,DE 
+wget -qO"$1" http://www.wetterstation-luebeck.de/Aktuell/minidisplay.gif
