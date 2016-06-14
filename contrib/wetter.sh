@@ -4,13 +4,13 @@ TMPDIR=$(mktemp -d)
 
 pushd $TMPDIR
 
-seq 0 15 $[15*9] | \
+seq 0 5 $[5*9] | \
   while read offset
   do
     date -d"$(date -d"1970-01-01 00:00:00$(date +%:z) \
       + $(dc -e "$(date +%s) d 60 15 * % - p") seconds" \
       +"%Y-%m-%d %H:%M:%S %Z - $offset minutes")" \
-      +"http://www.wetteronline.de/?pid=p_radar_map&ireq=true&src=radar/vermarktung/p_radar_map/wom/%Y/%m/%d/Intensity/SHS/grey_flat/%Y%m%d%H%M_SHS_Intensity.gif"
+      +"http://www.wetteronline.de/?pid=p_radar_map&ireq=true&src=wmapsextract/vermarktung/global2maps/%Y/%m/%d/SHS/grey_flat/%Y%m%d%H%M_SHS.png"
   done | \
     nl | \
     while read n url; do
