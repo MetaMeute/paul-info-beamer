@@ -4,7 +4,7 @@ TMPDIR=$(mktemp -d)
 
 pushd $TMPDIR
 
-seq 0 5 $[5*9] | \
+seq 0 5 $[5*24] | \
   while read offset
   do
     date -d"$(date -d"1970-01-01 00:00:00$(date +%:z) \
@@ -14,15 +14,12 @@ seq 0 5 $[5*9] | \
   done | \
     nl | \
     while read n url; do
+      n=$[999-n]
       wget \
         --user-agent 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)' \
-        -qO${n}.gif "$url"
+        -qO$1/wetterkarte-${n}.png "$url"
     done
 
-convert -delay 30 $(ls -r) out.gif
-
 popd
-
-convert ${TMPDIR}/out.gif $1
 
 rm -r $TMPDIR
